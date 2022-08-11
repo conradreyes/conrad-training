@@ -2360,19 +2360,14 @@
                   <a class="accordion active">Description</a>
                   <div class="panel open" style="display: block;">
                     <div class="wrapper">
-                      {{ '# header' | markdown }}
-                      {{ page.story.content.description | richtext }}
+                      {{ content.description | markdownify }}
                     </div>
                   </div>
                 
                   <a class="accordion ">Product Details</a>
                   <div class="panel " >
                     <div class="wrapper">
-                      <ul>
-                        <li><strong>Material</strong>: Copper beads and braided rope</li>
-                        <li><strong>Length:</strong> Adjustable 15 cm to 26 cm</li>
-                        <li><strong>Quality:</strong> 100% brand new, high quality</li>
-                      </ul>
+                      {{ content.markdown_test | markdownify }}
                     </div>
                   </div>
                 
