@@ -2243,12 +2243,6 @@
           <div class="product-gallery">
             <div class="carousel-product carousel-gallery">
 
-              <!-- <div class="product-image-gallery-large carousel-cell w-100" >
-                <div class="image-wrapper position-relative overflow-hidden" style="padding-top: 100.0%;">
-                  <img class="img-fluid position-absolute landscape lazyautosizes lazyloaded" 
-                  src="{{ content.images}}" alt="" width="700" height="700">
-                </div>
-              </div> -->
               {% for blok in content.images %}
               <div class="product-image-gallery-large carousel-cell w-100"  >
                 <div class="image-wrapper position-relative overflow-hidden " style="padding-top: 100.0%;">
@@ -2265,7 +2259,6 @@
               </div>
               {% endfor %}
                
-                
             </div>
 
             <div class="carousel-product-nav d-none d-md-block">
@@ -2300,7 +2293,7 @@
                 {% endfor %}
                 
               </ul>
-              <span class="product-reviews-total">8 Reviews</span>
+              <span class="product-reviews-total">{{ content.reviews | size }} Reviews</span>
             </div>
 
             <div class="product-pricing d-flex order-4">
@@ -2313,16 +2306,19 @@
               <div class="container d-flex p-0">
                 <h4 class="product-title-small order-1">{{ content.product_title }}</h4>
                 <div class="product-quantity d-flex order-6 order-md-3">
+                  {% if content.in_stock %}
                   <div class="product-quantity-label d-none d-md-block">QTY</div>
                   <div class="qty-button-wrapper d-flex">
                     <button class="btn qty-button minus">-</button>
                     <input type="text" name="qty" class="quantity" maxlength="2" value="1">
                     <button class="btn qty-button plus">+</button>
                   </div>
+                  {% endif %}
                 </div>
                 <div class="product-info order-8 text-center text-md-left order-md-4">
                   <p>Handcrafted / Ships from United States</p>
                 </div>
+                {% if content.in_stock %}
                 <button class="btn cta-button order-7 order-md-5">
                   <span class="cta-button-text">Buy Now</span>
                   <span class="cta-button-icon">
@@ -2333,6 +2329,7 @@
                     </svg>
                   </span>
                 </button>
+                {% endif %}
               </div>
             </div>
 
@@ -2434,7 +2431,6 @@
         </div>
 
       </div>
-    </div>
     </div>
   </section>
 
