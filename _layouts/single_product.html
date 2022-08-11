@@ -2360,23 +2360,21 @@
                   <a class="accordion active">Description</a>
                   <div class="panel open" style="display: block;">
                     <div class="wrapper">
-                      {{ content.description | markdownify }}
+                      {{ content.descriptionv2 | markdownify }}
                     </div>
                   </div>
                 
                   <a class="accordion ">Product Details</a>
                   <div class="panel " >
                     <div class="wrapper">
-                      {{ content.markdown_test | markdownify }}
+                      {{ content.product_detailsv2 | markdownify }}
                     </div>
                   </div>
                 
                   <a class="accordion ">Refund Policy</a>
                   <div class="panel " >
                     <div class="wrapper">
-                      <p>Here in <strong>SVANA</strong>, our goal is to bring inspiration and joy to our customers through our products. But we understand that not all customers have the same preferences. If you wish to return an item, please email us within 30 days from receiving your order.</p>
-                      <p>Our email address is <strong>customer@svanadesign.com</strong>. Our customer service team would be more than willing to assist you.</p>
-                      <p>We provide refunds for the returned items. But the returning party needs to shoulder the shipping cost. We don’t send return labels, especially for returns due to one’s preferences. In case you receive a damaged product, you don’t need to return it. Please reach out to us, and we will send a replacement right away.</p>
+                      {{ content.refund_policyv2 | markdownify }}
                     </div>
                   </div>
                 
