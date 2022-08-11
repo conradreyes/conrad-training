@@ -2284,7 +2284,11 @@
 
         <div class="col-md-6 col-lg-5 offset-lg-1">
           <div class="product-details d-flex flex-column d-md-block">
+            {% if content.in_stock %}
             <span class="stock-status order-1">IN STOCK</span>
+            {% else %}
+            <span class="stock-status order-1">OUT OF STOCK</span>
+            {% endif %}
             <h1 class="product-title order-2">{{content.product_title}}</h1>
 
             <div class="product-review-stars order-3">
@@ -2334,24 +2338,11 @@
 
             <div class="payment-options order-9">
               <ul class="list-unstyled list-inline m-0">
+                {% for method in content.payment_methods %}
                 <li class="list-inline-item m-0">
-                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-visa.svg?v=1608676269" alt="">
+                  <img src="{{ method.filename }}" alt="">
                 </li>
-                <li class="list-inline-item m-0">
-                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-mastercard.svg?v=1608676269" alt="">
-                </li>
-                <li class="list-inline-item m-0">
-                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-paypal.svg?v=1608676269" alt="">
-                </li>
-                <li class="list-inline-item m-0">
-                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-american_express.svg?v=1608676269" alt="">
-                </li>
-                <li class="list-inline-item m-0">
-                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-shopify.svg?v=1608680966" alt="">
-                </li>
-                <li class="list-inline-item m-0">
-                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/layer1.svg?v=1608681005" alt="">
-                </li>
+                {% endfor %}
               </ul>
             </div>
             
@@ -2367,7 +2358,7 @@
                   <a class="accordion ">Product Details</a>
                   <div class="panel " >
                     <div class="wrapper">
-                      {{ content.product_detailsv2 | markdownify }}
+                      {{ content.product_detailv2 | markdownify }}
                     </div>
                   </div>
                 
@@ -2394,6 +2385,7 @@
         <div class="product-reviews-wrapper">
           <div class="product-review-row row align-items-center text-left">
 
+            {% for blok in content.reviews %}
             <div class="col-lg-6 col-md-12 col-sm-12 review-item  load-more">
               <div class="row review-item-inner ">
                 <!-- -->
@@ -2402,12 +2394,12 @@
                     <div class="image-wrapper position-relative overflow-hidden " style="padding-top: 133.38545738858483%;">
                       <img
                         class="lazyload position-absolute portrait"
-                        src="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg"
+                        src="{{ blok.review_image.filename | resize:'700x0' }}"
                         srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-srcset="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/180x0 180w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/360x0 360w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/540x0 540w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/720x0 720w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/900x0 900w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/1080x0 1080w"
+                        data-srcset="{{ blok.review_image.filename | resize:'180x0' }} 180w, {{ blok.review_image.filename | resize:'360x0' }} 360w, {{ blok.review_image.filename | resize:'540x0' }} 540w, {{ blok.review_image.filename | resize:'720x0' }} 720w, {{ blok.review_image.filename | resize:'900x0' }} 900w, {{ blok.review_image.filename | resize:'1080x0' }} 1080w"
                         data-sizes="auto"
                         width="1279"
-                        height="1706"alt=""
+                        height="1706" alt=""
                       />
                     </div>
                   </div>
@@ -2416,176 +2408,22 @@
                 <div class="col-md-6">
                   <div class="product-review-stars">
                     <ul class="list-unstyled list-inline d-inline">
+                      {% for i in (1..blok.rate) %}
                       <li class="list-inline-item">
                         <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
                       </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
+                      {% endfor %}
                     </ul>
                   </div>
-                  <div class="review-name">Diana M. </div>
+                  <div class="review-name">{{ blok.name }} </div>
                   <div class="review-text">
-                    <p>"You definitely know my style mom." My son loved the look of this bracelet, he has worn it ever since I gave it to him. Definitely earned best mom points for this!</p>
+                    <p>{{ blok.review }}</p>
                   </div>
-                  <div class="review-date">03/19/2022</div>
+                  <div class="review-date">{{ blok.review_date }}</div>
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-6 col-md-12 col-sm-12 review-item  load-more">
-              <div class="row review-item-inner ">
-                <!-- -->
-                <div class="col-md-6">
-                  <div class="review-img">
-                    <div class="image-wrapper position-relative overflow-hidden " style="padding-top: 133.38545738858483%;">
-                      <img
-                        class="lazyload position-absolute portrait"
-                        src="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg"
-                        srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-srcset="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/180x0 180w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/360x0 360w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/540x0 540w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/720x0 720w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/900x0 900w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/1080x0 1080w"
-                        data-sizes="auto"
-                        width="1279"
-                        height="1706"alt=""
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- -->
-                <div class="col-md-6">
-                  <div class="product-review-stars">
-                    <ul class="list-unstyled list-inline d-inline">
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="review-name">Diana M. </div>
-                  <div class="review-text">
-                    <p>"You definitely know my style mom." My son loved the look of this bracelet, he has worn it ever since I gave it to him. Definitely earned best mom points for this!</p>
-                  </div>
-                  <div class="review-date">03/19/2022</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6 col-md-12 col-sm-12 review-item  load-more">
-              <div class="row review-item-inner ">
-                <!-- -->
-                <div class="col-md-6">
-                  <div class="review-img">
-                    <div class="image-wrapper position-relative overflow-hidden " style="padding-top: 133.38545738858483%;">
-                      <img
-                        class="lazyload position-absolute portrait"
-                        src="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg"
-                        srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-srcset="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/180x0 180w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/360x0 360w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/540x0 540w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/720x0 720w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/900x0 900w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/1080x0 1080w"
-                        data-sizes="auto"
-                        width="1279"
-                        height="1706"alt=""
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- -->
-                <div class="col-md-6">
-                  <div class="product-review-stars">
-                    <ul class="list-unstyled list-inline d-inline">
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="review-name">Diana M. </div>
-                  <div class="review-text">
-                    <p>"You definitely know my style mom." My son loved the look of this bracelet, he has worn it ever since I gave it to him. Definitely earned best mom points for this!</p>
-                  </div>
-                  <div class="review-date">03/19/2022</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6 col-md-12 col-sm-12 review-item  load-more">
-              <div class="row review-item-inner ">
-                <!-- -->
-                <div class="col-md-6">
-                  <div class="review-img">
-                    <div class="image-wrapper position-relative overflow-hidden " style="padding-top: 133.38545738858483%;">
-                      <img
-                        class="lazyload position-absolute portrait"
-                        src="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg"
-                        srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-srcset="https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/180x0 180w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/360x0 360w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/540x0 540w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/720x0 720w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/900x0 900w, https://a.storyblok.com/f/134268/1279x1706/57b3baa0ce/review1.jpeg/m/1080x0 1080w"
-                        data-sizes="auto"
-                        width="1279"
-                        height="1706"alt=""
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- -->
-                <div class="col-md-6">
-                  <div class="product-review-stars">
-                    <ul class="list-unstyled list-inline d-inline">
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                      <li class="list-inline-item">
-                        <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/star-icon.svg?v=1634748310" alt="">
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="review-name">Diana M. </div>
-                  <div class="review-text">
-                    <p>"You definitely know my style mom." My son loved the look of this bracelet, he has worn it ever since I gave it to him. Definitely earned best mom points for this!</p>
-                  </div>
-                  <div class="review-date">03/19/2022</div>
-                </div>
-              </div>
-            </div>
-            
+            {% endfor %}
           </div>
         </div>
         
@@ -2596,6 +2434,7 @@
         </div>
 
       </div>
+    </div>
     </div>
   </section>
 
