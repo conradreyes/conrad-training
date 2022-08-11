@@ -32,9 +32,9 @@ plugins:
 
 # Settings for your Storyblok space
 storyblok:
-  token:   "bUTdy658vONXzFaptpzBjwtt"
+  token:   "ZCkw4xFZaQLR2Sme9n10nwtt"
   # Can be either `draft` or `published`
-  version: published
+  version: draft
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

@@ -1,4 +1,5 @@
 require "storyblok"
+require 'storyblok/richtext'
 
 module Jekyll
   class StoryblokPage < Page
