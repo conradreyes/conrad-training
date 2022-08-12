@@ -80,6 +80,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2-x64-mingw32)
+    webrick (1.7.0)
 
 PLATFORMS
   x64-mingw32
@@ -90,8 +91,8 @@ DEPENDENCIES
   minima (~> 2.0)
   rack-jekyll
   storyblok
-  storyblok-richtext-renderer
   tzinfo-data
+  webrick
 
 BUNDLED WITH
    2.3.20
